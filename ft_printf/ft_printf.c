@@ -27,7 +27,7 @@ int	ft_spec_printf(va_list args, const char spec)
 	else if (spec == '%')
 		return (ft_putchar('%'));
 	else if(spec == 'x' || spec == 'X')
-		return (ft_putnbr_hexa(va_arg(args, unsigned int), spec));
+		return (ft_putnbr_hexdec(va_arg(args, unsigned int), spec));
 	return (-1);
 }
 

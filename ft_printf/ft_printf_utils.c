@@ -44,5 +44,69 @@ int	ft_putnbr(long n)
 		return (-1);
 	len = len + 1;
 	return (len);
+}
 
+int	ft_putstr(char *str1)
+{
+	int	len;
+
+	if (!str1)
+	{
+		if (write(1, "(null)", 6) == -1)
+			return (-1);
+		return (6);
+	}
+	len = 0;
+	while (*str1 != '\0')
+	{
+		if (write(1, str1, 1) == -1)
+			return (-1);
+		len++;
+		str1++;
+	}
+	return (len);
+}
+
+int	ft_putnbr_hexdec(unsigned long num, char up)
+{
+	int	len;
+	int	mod;
+	char	*base;
+	int	aux;
+
+	mod = 0;
+	len = 0;
+	if (up == 'X')
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
+	if (num > 15)
+	{
+		aux = ft_putnbr_hexdec((num / 16), up);
+		if (aux == -1)
+			return (-1);
+		len = len + aux;
+	}
+	mod = num % 16;
+	if (write(1, &base[mod], 1) == -1)
+		return (-1);
+	len = len + 1;
+	return (len);
+}
+
+int	ft_putptr(void *p)
+{
+	int	len;
+	int	aux;
+
+	len = 0;
+	aux = 0;
+	if (ft_putstr("0x") == -1)
+		return (-1);
+	len = len + 2;
+	aux = ft_putnbr_hexdec((unsigned long)p,'x');
+	if (aux == -1)
+		return (-1);
+	len = len + aux;
+	return (len);
 }
