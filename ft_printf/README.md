@@ -419,30 +419,4 @@ The main topics studied while developing this project include:
 
 ### AI usage
 
-AI tools were used for **documentation support**, specifically to help structure and draft this `README.md` according to the README requirements in the 42 `ft_printf` subject.
-
-AI was not used as a substitute for understanding the project requirements or for explaining code that I cannot independently explain.
-
-**Important:** Update this section to accurately reflect the actual use of AI during the project. In particular, if AI was used to generate, modify, debug, or review any source code, those uses should be explicitly described here.
-
-## Limitations
-
-The mandatory implementation is intended to reproduce the required subset of `printf()` defined by the 42 subject.
-
-It does not attempt to reproduce every feature of the system `printf()` implementation, and it does not implement the original `printf()` buffer management.
-
-The mandatory conversion set is:
-
-```text
-c s p d i u x X %
-```
-
-## Author
-
-**42 Login:** `<your_42_login>`
-
-**School:** 42 Prague
-
-**Project:** ft_printf
-
-**Curriculum:** 42 Core Curriculum
+AI tools was used for **documentation support**, specifically to help structure and draft this `README.md` according to the README requirements in the 42 `ft_printf` subject.
