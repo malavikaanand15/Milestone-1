@@ -6,16 +6,16 @@
 /*   By: manand <manand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/08 13:23:36 by manand            #+#    #+#             */
-/*   Updated: 2026/09/10 15:48:33 by manand           ###   ########.fr       */
+/*   Updated: 2026/10/13 12:50:47 by manand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FT_PRINTF_H
-#define	FT_PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 int	ft_printf(const char *format, ...);
 int	ft_putchar(char c);

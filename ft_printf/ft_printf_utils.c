@@ -6,7 +6,7 @@
 /*   By: manand <manand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 16:26:14 by manand            #+#    #+#             */
-/*   Updated: 2026/09/10 16:45:01 by manand           ###   ########.fr       */
+/*   Updated: 2026/10/13 15:57:26 by manand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_putchar(char c)
 {
-	return (write(1, &c, 1)); 
+	return (write(1, &c, 1));
 }
 
 int	ft_putnbr(long n)
@@ -69,10 +69,10 @@ int	ft_putstr(char *str1)
 
 int	ft_putnbr_hexdec(unsigned long num, char up)
 {
-	int	len;
-	int	mod;
 	char	*base;
-	int	aux;
+	int		len;
+	int		mod;
+	int		aux;
 
 	mod = 0;
 	len = 0;
@@ -101,10 +101,16 @@ int	ft_putptr(void *p)
 
 	len = 0;
 	aux = 0;
+	if (!p)
+	{
+		if (ft_putstr("(nil)") == -1)
+			return (-1);
+		return (5);
+	}
 	if (ft_putstr("0x") == -1)
 		return (-1);
 	len = len + 2;
-	aux = ft_putnbr_hexdec((unsigned long)p,'x');
+	aux = ft_putnbr_hexdec((unsigned long)p, 'x');
 	if (aux == -1)
 		return (-1);
 	len = len + aux;

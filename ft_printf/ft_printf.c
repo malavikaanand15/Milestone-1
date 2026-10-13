@@ -6,7 +6,7 @@
 /*   By: manand <manand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/08 13:38:56 by manand            #+#    #+#             */
-/*   Updated: 2026/09/10 16:16:53 by manand           ###   ########.fr       */
+/*   Updated: 2026/10/13 15:58:08 by manand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_spec_printf(va_list args, const char spec)
 		return (ft_putnbr(va_arg(args, unsigned int)));
 	else if (spec == '%')
 		return (ft_putchar('%'));
-	else if(spec == 'x' || spec == 'X')
+	else if (spec == 'x' || spec == 'X')
 		return (ft_putnbr_hexdec(va_arg(args, unsigned int), spec));
 	return (-1);
 }
@@ -34,8 +34,8 @@ int	ft_spec_printf(va_list args, const char spec)
 int	ft_printf(char const *str, ...)
 {
 	va_list	args;
-	int	len;
-	int	check;
+	int		len;
+	int		check;
 
 	va_start(args, str);
 	len = 0;
@@ -43,7 +43,10 @@ int	ft_printf(char const *str, ...)
 	{
 		if (*str == '%')
 		{
-			check = ft_spec_printf(*(str++), args);
+			str++;
+			if (!*str)
+				return (-1);
+			check = ft_spec_printf(args, *str);
 			if (check == -1)
 				return (-1);
 			len = len + check;
