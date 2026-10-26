@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: manand <manand@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/08 11:43:31 by manand            #+#    #+#             */
+/*   Updated: 2026/10/26 19:08:12 by manand           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+//cc -Wall -Wextra -Werror -D 
+// BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c main.c
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -14,7 +29,7 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
@@ -22,11 +37,11 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+			return ((char *)(s + i));
 		i++;
 	}
 	if (s[i] == (char)c)
-		return ((char *)&s[i]);
+		return ((char *)(s + i));
 	return (NULL);
 }
 
@@ -35,10 +50,11 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 	char	*dest;
 
-	i = 0;
-	dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	i = ft_strlen(s1);
+	dest = (char *)malloc(sizeof(char) * (i + 1));
 	if (!dest)
 		return (NULL);
+	i = 0;
 	while (s1[i])
 	{
 		dest[i] = s1[i];
@@ -48,29 +64,41 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_grow(t_str *s, size_t need)
 {
+	char	*new;
 	size_t	i;
-	size_t	j;
-	char	*dest;
 
-	if (!s1 || !s2)
-		return (NULL);
-	dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!dest)
-		return (NULL);
-	i = 0;
-	while (s1[i])
+	while (need + 1 > s->cap)
+		s->cap *= 2;
+	new = malloc(s->cap);
+	if (!new)
 	{
-		dest[i] = s1[i];
+		free(s->data);
+		s->data = NULL;
+		return (0);
+	}
+	i = 0;
+	while (i < s->len)
+	{
+		new[i] = s->data[i];
 		i++;
 	}
-	j = 0;
-	while (s2[j])
-	{
-		dest[i + j] = s2[j];
-		j++;
-	}
-	dest[i + j] = '\0';
-	return (dest);
+	new[i] = '\0';
+	free(s->data);
+	s->data = new;
+	return (1);
+}
+
+int	ft_append(t_str *s, const char *buf, size_t n)
+{
+	size_t	i;
+
+	if (s->len + n + 1 > s->cap && !ft_grow(s, s->len + n))
+		return (0);
+	i = 0;
+	while (i < n)
+		s->data[s->len++] = buf[i++];
+	s->data[s->len] = '\0';
+	return (1);
 }
